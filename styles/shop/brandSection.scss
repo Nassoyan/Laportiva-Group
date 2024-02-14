@@ -1,0 +1,48 @@
+.brand-section{
+    border: 1px solid #F0F0F0;
+    padding: 15px;
+    background-color: #f8f8f8;
+    width: 100%;
+        >h3 {
+            font-size: 18px;
+            font-weight: 300;
+            text-transform: capitalize;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 5px;
+        }
+
+        .brand-uls {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: .3s;
+            >span {
+                padding: 10px;
+                font-weight: 400;
+                transition: .1s;
+                border-radius: 10px;
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(152, 151, 151, 0.2);
+                }
+            }
+
+            .brand_uls_bold {
+                font-weight: 400;
+            }
+
+            .brandsection_allbrands {
+                padding-left: 0;
+            }
+        }
+}
+
+.selected {
+    border-radius: 5px;
+    background-color: rgba(152, 151, 151, 0.2);
+    font-weight: 300 !important;
+    // color: rgb(158, 215, 234);
+}
+

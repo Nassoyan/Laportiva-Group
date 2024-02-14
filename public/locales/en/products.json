@@ -1,0 +1,12 @@
+{
+    "product page" : "Product Page",
+    "product_detail": "Product Details",
+    "search_products_title" : "Search Products",
+    "search_placeholder" : "Search product...",
+    "filter_categories" : "Filter Categories",
+    "filter_brands" : "Filter Brands",
+    "all_brands" : "All Brands",
+    "follow_us" : "Follow Us",
+    "all" : "All",
+    "no_products" : "No products found, We are sorry. We cannot find any matches for your search term."
+}

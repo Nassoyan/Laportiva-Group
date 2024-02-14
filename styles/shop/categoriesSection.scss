@@ -1,0 +1,117 @@
+.categories-section{
+    border: 1px solid #F0F0F0;
+    padding: 15px;
+    background-color: #f8f8f8;
+    width: 100%;
+    >h3 {
+        font-size: 18px;
+        font-weight: 300;
+        text-transform: capitalize;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        white-space: nowrap;
+    }
+    .categories_container {
+        
+        .categories_all {
+            list-style-type: none;
+            margin-bottom: 10px;
+            .categories_all_li {
+                max-width: 20px;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+
+
+
+//////////@at-root
+.sidebar{
+    width: 260px;
+    flex-shrink: 0;
+    background-color: rgba(22, 22, 22, 1);
+    height: 100%;
+    overflow: auto;
+  }
+  
+  
+  .sidebar-item{
+    padding: 10px;
+    display: block;
+    // transition: background-color .1s;
+    border-radius: 10px;
+  }
+  .sidebar-item:hover{
+    background-color: rgba(152, 151, 151, 0.2);
+  }
+  
+  .sidebar-title{
+    display: flex;
+    font-size: 15px;
+    justify-content: space-between;
+    cursor: pointer;
+    white-space: nowrap;
+
+  }
+  .sidebar-title span {
+    display: inline-block;
+    width: 1.5em;
+    font-weight: 400;
+  }
+  .sidebar-title .toggle-btn{
+    transition: transform .3s;
+  }
+  .sidebar-item.open > .sidebar-title .toggle-btn{
+    transform: rotate(180deg);
+  }
+  .sidebar-content{
+    padding-top: .25em;
+    height: 0;
+    overflow: hidden;
+    transition: 0.4s ease;
+  }
+  .sidebar-item.open > .sidebar-content{
+    height: auto;
+    animation: scaleUp .3s ease;
+
+  }
+  
+  .sidebar-item.plain{
+    cursor: pointer;
+  }
+  .toggle-btn {
+    >svg {
+      >g {
+        >path {
+
+          fill: black;
+        }
+      }
+    }
+  }
+
+//   @-webkit-keyframes scaleUp {
+//     0% {
+//       opacity: 0;
+//       translate: 0 50px;
+//     }
+//     100% {
+//       opacity: 1;
+//       translate: 0 0;
+//     }
+//   }
+  
+  @keyframes scaleUp {
+    0% {
+      opacity: 0;
+      translate: 0 5px;
+    }
+    100% {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }

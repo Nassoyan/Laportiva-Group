@@ -1,0 +1,192 @@
+.contactUs{
+    display: flex;
+    margin: 80px auto 200px;
+    justify-content: space-between;
+
+    &__main{
+        max-width: 403px;
+        color: #111111;
+       
+        .title{
+            font-weight: 700;
+            font-size: 48px;
+            line-height: 120%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text{
+            margin: 20px 0 40px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 160%;
+        }
+
+        >div{
+            font-size: 16px;
+            line-height: 160%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+            > :nth-child(1){
+                font-weight: 600;
+            }
+            
+            > :nth-child(2){
+                font-weight: 400;
+            }
+
+            .text_green_underline{
+                padding-bottom: 2px;
+                display: inline;
+                border-bottom: solid 1px #7ee787;
+            }
+            
+        }
+        .call_block{
+            margin-top: 20px;
+
+            .working_time{
+                margin-left: 10px;
+                color: #ABB4BE;
+            }
+        }
+        
+    }
+
+    &__form{
+        
+        width: calc(50% - 10px);
+        
+        input{
+            height: 44px;
+        }
+        input:focus, textarea {
+            outline: none;
+        }
+        
+        input, textArea {
+            color: #111111;
+            width: 100%;
+            padding: 9px 15px;
+            border: 1px solid #ABB4BE;
+            border-radius: 6px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 160%;
+
+        }
+        .PhoneInput{
+            width: calc(50% - 10px);
+        }
+
+        ::placeholder{
+            color: #111111;
+        }
+        .email_input_block{
+            margin: 25px 0;
+            // .email_input{
+            // }
+        }
+
+
+        .name_number_block{
+            display: flex;
+            justify-content: space-between;
+            >div{
+                width: calc(50% - 10px);
+            }
+            >input{
+                width: calc(50% - 10px);
+            }
+        }
+
+        .btn{
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .contactUs{
+        margin: 60px auto 80px;
+        flex-direction: column;
+
+        &__main{
+            max-width: unset;
+            margin-bottom: 60px;
+
+            .title{
+                font-size: 36px;
+            }
+        }
+        
+        &__form{
+            width: 100%;
+
+            .contact_us_name_block{
+                margin-bottom: 30px;
+                input{
+                    margin-bottom: 5px;
+                }
+            }
+
+            input{
+                margin-bottom: 30px;
+            }
+
+            .email_input{
+                margin: 0 0 30px;
+            }
+
+            .name_number_block{
+                flex-direction: column;
+
+                >div{
+                    width: 100%;
+                }
+                input{
+                    width: 100%;
+                }
+            }
+            
+            .PhoneInput{
+                width: 100%;
+                margin-bottom: 30px;
+                input{
+                    margin: unset;
+                }
+            }
+        }
+    }
+}
+
+.backtohome {
+    color: #111111;
+    padding-left: 20px;
+    font-size: 36px;
+    cursor: pointer;
+}
+
+.contact_form {
+    font-family: Montserrat;
+    .btn {
+        background-color: rgb(235, 218, 144);
+        color: black;
+        border-radius: 9999px;
+        padding: 0.625rem 2rem;
+        transition-duration: .2s;
+        border: none;
+    }
+
+    }
+
+    .text_gradient_blue{
+        background: linear-gradient(265.06deg, rgb(182, 166, 96) 0%, rgb(235, 218, 144) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
