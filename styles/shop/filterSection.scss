@@ -73,11 +73,15 @@
         .productpage_container {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          grid-gap: 10px;
+          grid-gap: 15px;
           grid-auto-rows: minmax(100px, auto);
+          margin-top: 14px;
           >a {
             color: black;
+            // overflow: hidden;
             .productpage_inner {
+              border-radius: 10px;
+                transition: .3s;
                 flex: 0 0 auto;
                 display: flex;
                 flex-direction: column;
@@ -86,9 +90,26 @@
                 -webkit-animation: scaleUp 0.4s ease;
                  animation: scaleUp 0.4s ease;
                  text-transform: capitalize;
+                 &:hover {
+                   transform: scale(1.02);
+                 }
                 // align-items: center;
                 >img {
-                  object-fit: cover;
+                  // object-fit: cover;
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 10px;
+                  // box-shadow: rgba(17, 12, 46, 0.05) 0px 48px 100px 0px;
+                }
+
+                >div {
+                  height: 30%;
+                  padding: 15px 25px;
+                  background-color: #f8f8f8;
+                  border-radius: 10px;
+                  >p {
+                    text-align: center;
+                  }
                 }
             }
           }
@@ -131,17 +152,17 @@
           >a {
             .productpage_inner {
               width: 260px;
-                >img {
-                  width: 260px !important;
-                  height: 260px;
-                }
+                // >img {
+                //   width: 260px !important;
+                //   height: 260px;
+                // }
             }
           }
         }
     }
   }
 }
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1255px) {
     .filterSection_wrapper {
       .productpage_products {
         .productpage_container {
@@ -149,10 +170,10 @@
             
             .productpage_inner {
               width: 220px;
-                >img {
-                  width: 220px !important;
-                  height: 220px;
-                }
+                // >img {
+                //   width: 220px !important;
+                //   height: 220px;
+                // }
             }
           }
         }
@@ -160,7 +181,7 @@
   }
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1140px) {
   .filterSection_wrapper {
     padding: 70px 15px;
     flex-direction: column;
@@ -233,10 +254,10 @@
           
           .productpage_inner {
             width: 240px;
-            >img {
-              width: 240px !important;
-              height: 240px;
-            }
+            // >img {
+            //   width: 240px !important;
+            //   height: 240px;
+            // }
           }
       }
   }

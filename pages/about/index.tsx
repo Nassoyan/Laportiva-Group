@@ -11,7 +11,7 @@ function index() {
     <>
     <HeadSeo title="Laportiva | about" />
     <div className='about_wrapper'>
-        <span> {`${t("hello world")}`} </span>
+        <p> {`${t("Home")} | ${t("About")}`}</p>
         <p className='about_title'>Lit to make, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
         <div className='about_wrapper_row'>
             <div className='about_wrapper_container'>

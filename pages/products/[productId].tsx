@@ -4,17 +4,20 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import HeadSeo from '@/components/HeadSeo';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 function ProductDetails() {
-  const [data, setData] = useState<any>()
+  const [data, setData] = useState<any>();
   const [openImage, setOpenImage] = useState<boolean>(false)
   const { locale }  = useRouter()
   const {t}:any = useTranslation("products")
   const router = useRouter()
   const productId = router.query.productId
-  const id = Number(productId)
+  const id = Number(productId);
+
+  
 
 
   useEffect(() => {
@@ -28,17 +31,23 @@ function ProductDetails() {
         .then(res => res.json())
         .then((res) => {
             setData(res)
-            
+            locale === "am" ? router.query.name = res.name : res.name_en
         })
           .catch(err => console.error(err));
   }, [router]);
+
+
+  
 
 
   return (
     <>
     <HeadSeo title='Laportiva | products'/>
     <div className='product_details_page_wrapper'>
-       <h2>{t("product_detail")}</h2>
+      <div className='product_details_page_title'>
+        <h2>{t("product_detail")}</h2>
+        <Link href="/products"> <span className="icon-arrow-left"></span></Link>
+      </div>
        
        <div  className='product_details_page_container'>
           <div id='imageMagnifyer' onClick={() => {
@@ -57,6 +66,7 @@ function ProductDetails() {
                /> */}
           </div>
           <div className='product_details_page_container_description'>
+
           <div className='product_details_page_container_description_inner'>
             <div className='each_product_detail_box'>
               <h2 className='product_detail_product_name'>{locale === "en" ? data?.name_en : data?.name}</h2>
@@ -68,7 +78,21 @@ function ProductDetails() {
                <div><span className='product_detail_product_name_span'>Country :</span> <span className='product_detail_product_name_span2'> {data?.country}</span></div>
             </div>
           </div>
-       <div className='follow-us-container prod_details_follow_us'>
+
+          {data?.images.length > 1 && (
+                    <div className='product_detail_page_more_images_container'>
+                        {data?.images.map((image:any, idx:number) => {
+                            return (
+                              <React.Fragment key={idx}>
+                                <Image src={image?.image_url} alt={data.name} width={100} height={100} />
+                              </React.Fragment>
+                                )
+                              })
+                        }
+                    </div>
+          )}
+
+          <div className='follow-us-container prod_details_follow_us'>
               <span className="footer_menu_title">{t("follow_us")}</span>
                 <div className="footer_icons">
                 <Link
@@ -96,7 +120,7 @@ function ProductDetails() {
                   className="icon-youtube"
                 ></Link>
               </div>
-              </div>
+          </div>
        </div>
     </div>
     <div onClick={() => {

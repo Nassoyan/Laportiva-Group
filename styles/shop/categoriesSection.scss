@@ -48,6 +48,10 @@
   .sidebar-item:hover{
     background-color: rgba(152, 151, 151, 0.2);
   }
+  .sidebar-item:focus {
+    background-color: rgba(152, 151, 151, 0.2);
+  }
+  
   
   .sidebar-title{
     display: flex;
@@ -114,4 +118,8 @@
       opacity: 1;
       translate: 0 0;
     }
+  }
+
+  .open {
+    background-color: rgba(152, 151, 151, 0.2);
   }

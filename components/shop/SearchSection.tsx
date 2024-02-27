@@ -15,7 +15,9 @@ function SearchSection({searchValue, onChange, t}:any) {
             data-kt-user-table-filter='search'
             placeholder={`${t("search_placeholder")}`}
             onChange={onChange}
-            value={searchValue || ""}  />
+            value={searchValue || ""}
+            // onBlur={() => setSearchValue("")}  
+            />
             <button type='submit'><span className="icon-search"></span></button>
         </form>
     </section>

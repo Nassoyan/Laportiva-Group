@@ -2,7 +2,7 @@ import { HomeProps } from '@/pages/index';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
-import img from "../../public/images/animated/animated.jpg"
+import img from "../../public/images/animated/888852.jpg"
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
@@ -35,7 +35,6 @@ function Categories({ categories }:HomeProps) {
                   src={img}  
                   alt='cat img' 
                   fill
-                  // loading='lazy'
                   priority={true}
                   />
                 </div>

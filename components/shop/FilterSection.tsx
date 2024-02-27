@@ -20,6 +20,7 @@ interface Data {
     images: Images[];
     artikul:number;
     code:string,
+    count:number
 }
 
 
@@ -29,35 +30,51 @@ function FilterSection(
   ) {
   const router = useRouter();
   const { locale } = useRouter()
-  // const receivedBrandId = router.query.brandId !== undefined ? +router.query.brandId : '';
+  
+  const receivedBrandId= router.query.brandId || '';
+  
   const receivedCategoryId = router.query.categoryId || '';
-
   const [data, setData] = useState<Data[]>()
+  const [totalCountOfProducts, setTotalCountOfProducts] = useState<number | null>(null)
   const [totalPages, setTotalPages] = useState<number>(0) 
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [currentPage, setCurrentPage] = useState<number>(() => {
+    return typeof window !== 'undefined' ? sessionStorage.getItem("currentPage") || 1 : 1;
+
+  })
   const [productsPerPage, setProductsPerPage] = useState<number>(9)
   const [brandId, setBrandId] = useState<string>("") 
   const [catData, setCatData] = useState<CategoryType[]>([])
   const [brands, setBrands] = useState<HomeProps>()
   const [selectedCategories, setSelectedCategories] = useState<(number | null)[]>([]);
-  const [searchValue, setSearchValue] = useState<null | string>(null)
+  // const [searchValue, setSearchValue] = useState<null | string>(null);
+  const [searchValue, setSearchValue] = useState(() => {
+    // Initialize with sessionStorage value if available, otherwise use an empty string
+    return typeof window !== 'undefined' ? sessionStorage.getItem("search") || "" : "";
+  });
   
     
   useEffect(() => {
-   document.body.style.backgroundColor = "#ffffff"
+   document.body.style.backgroundColor = "#ffffff";
   }, [])
     
 
   function getProductsData() {
-    let url =  new URL(`${baseUrl}/products?page=${currentPage}&size=${productsPerPage}`)
+    
+    let url =  new URL(`${baseUrl}/products?page=${currentPage}&size=${productsPerPage}`);
     if(searchValue) {
-      url.searchParams.append("search", searchValue)
-    }
+      url.searchParams.append("search", searchValue);
+    } 
+
     if(brandId) {
-      url.searchParams.append("brand_id", brandId)
+      url.searchParams.append("brand_id", brandId);
+    } else if(receivedBrandId.length) {
+      url.searchParams.append("brand_id", receivedBrandId.toString());
     }
+
     if(selectedCategories.length) {
-      url.searchParams.append("categories", selectedCategories.join(","))
+      url.searchParams.append("categories", selectedCategories.join(","));
+    } else if(receivedCategoryId.length) {
+      url.searchParams.append("categories", receivedCategoryId.toString());
     }
      
     return fetch(url.toString())
@@ -82,30 +99,26 @@ function FilterSection(
     fetchData();
 }, []);
 
-
   useEffect(() => {
-    setSelectedCategories([receivedCategoryId])
-  }, [receivedCategoryId])
-
-  
-
-  useEffect(() => {
+    const sessionPage = sessionStorage.getItem("currentPage");
     getProductsData()
       .then(req => req.json())
       .then((res) => {
         if(currentPage > res.totalPages){
-          setCurrentPage((res.totalPages - res.totalPages) + 1)
-          setTotalPages(res.totalPages)
+          setCurrentPage((res.totalPages - res.totalPages) + 1);
+          setTotalPages(res.totalPages);
           setData(res.products);
-        } else {
-          setCurrentPage(res.currentPage)
-          setTotalPages(res.totalPages)
-          setData(res.products);
-        }
+          setTotalCountOfProducts(res.count);
 
-        // setCurrentPage(res.currentPage)
+        } else {
+          setCurrentPage(res.currentPage);
+          setTotalPages(res.totalPages);
+          setData(res.products);
+          setTotalCountOfProducts(res.count);
+
+        }
       });
-  }, [currentPage, brandId, selectedCategories])
+  }, [currentPage, brandId, selectedCategories, receivedCategoryId, receivedBrandId])
 
 
   useEffect(() => {
@@ -115,14 +128,20 @@ function FilterSection(
           .then(req => req.json())
           .then((res) => {
             if(currentPage > res.totalPages) { 
-              setCurrentPage((res.totalPages - res.totalPages) + 1)
+              setCurrentPage((res.totalPages - res.totalPages) + 1);
               setTotalPages(res.totalPages)
               setData(res.products);
+              setTotalCountOfProducts(res.count);
+
+
             } else {
               setTotalPages(res.totalPages);
               setData(res.products);
               setCurrentPage(res.currentPage);
+              setTotalCountOfProducts(res.count);
+
             }
+            
         })
         .catch(error => {
         console.error(error);
@@ -130,29 +149,34 @@ function FilterSection(
       }
   }, 600);
 
+
   return () => {
     clearTimeout(handle);
   };
 }, [searchValue]);
 
 function handleChange(e:ChangeEvent<HTMLInputElement>) {
-  setSearchValue(e.target.value);
+  const searchData = e.target.value;
+  setSearchValue(searchData);
+  sessionStorage.setItem("search", searchData);
 }
-
   
-  function handleCategoryClick(id:number,index:number) {
-    console.log(id , index, "-> id and index of selected category");
-      
-    setSelectedCategories((prevs:any) => {
-      if (index <= prevs.length) {
-          prevs[index-1] = id;
-          return prevs.slice(0, index);
-      }
-      
-    return [...prevs, id].filter(Boolean)
-      })
+  function handleCategoryClick(id:number,index:number, level:number) {
+    
+    setSearchValue("")
+    sessionStorage.removeItem("search")
+    
+    let itemArr = selectedCategories;
+
+    if (level <= itemArr.length) {
+      itemArr[level] = id;
+      itemArr = selectedCategories.slice(0, level+1);
+    } else {
+      itemArr = [...selectedCategories, id].filter(Boolean)
+    }
+
+    setSelectedCategories(itemArr)
 }
-console.log(selectedCategories, "-> selectedCategories inside function");
 
 
   return (
@@ -165,23 +189,33 @@ console.log(selectedCategories, "-> selectedCategories inside function");
               </div>
 
                <div className='category_brand_section'>
-                <CategoriesSection t={t}  handleCategoryClick={handleCategoryClick} catData={catData} />
-
                 <BrandSection t={t} setBrandId={setBrandId}  brands={brands} />
+
+                <CategoriesSection t={t} setSelectedCategories={setSelectedCategories}  handleCategoryClick={handleCategoryClick} catData={catData} />
+
                </div>
 
             </div>
 
         </div>
         <div className='productpage_products'>
+          {/* <span>Showing 1-{productsPerPage} of {totalCountOfProducts} results</span> */}
+          {t('results', {
+          count: productsPerPage,
+          total: totalCountOfProducts,
+        })}
           <div className='productpage_container'>
             {data?.map((product) => {
               return (
-                <Link key={product.id} href={`/products/${product?.id}`} locale={locale}>
-                  <div className='productpage_inner'>
-                    <Image   
+                <Link key={product.id} href={`/products/${product?.id}?name=${locale === "am" ? product.name : product.name_en}`} locale={locale}>
+                  <div className='productpage_inner' onClick={()=>{
+                    router.query.Search
+                  }}>
+                    <Image  
+                      // onMouseEnter={() => setMouseEnter(true)}
+                      // onMouseLeave={() => setMouseEnter(false)}
                       id='myImage'
-                      src={product.images[0].image_url}
+                      src={product?.images[0]?.image_url}
                       alt="img"
                       width={294}
                       height={294}
@@ -189,7 +223,7 @@ console.log(selectedCategories, "-> selectedCategories inside function");
                       />
                       <div>
                         <p>{locale === "en" ? product.name_en : product.name}</p>
-                        <p>{product.code}</p>
+                        {/* <p>{product.code}</p> */}
                         <p>{product.artikul}</p>
                       </div>
                   </div>

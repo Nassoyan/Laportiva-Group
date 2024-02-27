@@ -24,6 +24,7 @@ export default function Header() {
 
 
     useEffect(() => {
+
       const handleScroll = () => {
         if (window.scrollY >= 300) {
           setIsHeaderFixed(true);
@@ -31,7 +32,7 @@ export default function Header() {
           setIsHeaderFixed(false);
         }
       };
-      router.pathname !== "/products" && window.addEventListener('scroll', handleScroll);
+      window.addEventListener('scroll', handleScroll);
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
@@ -79,7 +80,6 @@ export default function Header() {
                     return (
                         <li key={link.id}>
                             <Link
-                            //  style={{fontWeight: locale==="am" ? "300" : ""}}
                                   className="header_link" href={link.slug}>
                                 {translation(link.name)}
                             </Link>
@@ -89,7 +89,8 @@ export default function Header() {
             </ul>
 
             <div className="language">
-            <span onClick={() => setOpenLang(!openLang)} className="icon-earth"></span>
+             <span>{locale === "am" ? "AM" : "EN"}</span>
+             <span onClick={() => setOpenLang(!openLang)} className="icon-earth"></span>
                 <div style={{ display: openLang ? "block" : "none" }} className="header_language_uls"  id="top-header-language-dropdown">
                     <div>
                         {locales?.map((lang, idx) => {
@@ -103,16 +104,12 @@ export default function Header() {
                                         pathname: router.pathname,
                                         query: router.query.productId
                                         ? { ...router.query, productId: router.query.productId }
-                                        : { ...router.query }, // Include existing query parameters and add productId only if it exists
+                                        : { ...router.query },
                                     }}
                                     locale={lang}
                                     >
                                     {lang}
                                 </Link>
-
-                                //  <Link onClick={() => {
-                                //      setOpenLang(!openLang)
-                                //  }} key={idx} href="" locale={lang}>{lang}</Link>
                             )
                         })}
                     </div>

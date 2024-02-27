@@ -22,9 +22,10 @@ export interface HomeProps {
   catData?:CategoryType[];
   currentPage?:number;
   totalPages?:number;
-  setCurrentPage?:(value:number) => void
-  setBrandId?:(value:any) => void
-  handleCategoryClick?:(value:any, anotherValue:any) => void
+  setCurrentPage?:(value:number) => void;
+  setBrandId?:(value:any) => void;
+  handleCategoryClick?:(value:any, anotherValue:any, another:any) => void;
+  setSelectedCategories?:any;
   t?:any
 }
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL

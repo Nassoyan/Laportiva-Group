@@ -33,7 +33,7 @@ function BrandSection({brands, setBrandId, t}:HomeProps) {
                   setBrandId(brand.id)
                   setSelectedBrandId(brand.id);
                 }
-                scrollToTop()
+                // scrollToTop()
               }}
               >
                {brand.name}

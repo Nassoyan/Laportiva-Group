@@ -25,6 +25,7 @@
             background-color: #53555b;
             transform: rotate(90deg);
             font-size: 30px;
+            // animation: shadowFadeOut 1.6s linear infinite;
         }
         .siteWideNext{          
             width: 45px;
@@ -176,6 +177,16 @@
         left: 12%;
     }
 }    
+
+@keyframes shadowFadeOut {
+    0% {
+        box-shadow: 0 0 0 0 #ddd, 0 0 0 0 #ddd, 0 0 0 0 #ddd;
+    }
+
+    100% {
+        box-shadow: 0 0 0 35px transparent, 0 0 0 25px transparent, 0 0 0 15px transparent;
+    }
+}
 
 
 

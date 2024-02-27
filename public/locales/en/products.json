@@ -8,5 +8,9 @@
     "all_brands" : "All Brands",
     "follow_us" : "Follow Us",
     "all" : "All",
-    "no_products" : "No products found, We are sorry. We cannot find any matches for your search term."
+    "no_products" : "No products found, We are sorry. We cannot find any matches for your search term.",
+    "Home" : "Home",
+    "Products": "Products",
+    "results": "Showing 1-{{count}} of {{total}} results"
+
 }

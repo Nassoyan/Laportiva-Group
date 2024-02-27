@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import ArrowDown from "../../public/icons/ArrowDown/ArrowDown"
 import { useTranslation } from 'next-i18next'
 
-function SubCategoriesItem({categories, handleCategoryClick, idx}:any) {
+function SubCategoriesItem({categories, handleCategoryClick, idx, level=0}:any) {
   const [open, setOpen] = useState(false)
   const { t }:any = useTranslation("common")
+  
 
   if(categories?.children && categories?.children.length > 0) {
     return (
       <div className={open ? "sidebar-item open" : "sidebar-item"}>
       <div onClick={() => {
         setOpen(!open)
-        handleCategoryClick && handleCategoryClick(categories.id, idx+1)
+        handleCategoryClick && handleCategoryClick(categories.id, idx+1, level)
       }
         } className='sidebar-title'>
               <span>
@@ -22,6 +23,7 @@ function SubCategoriesItem({categories, handleCategoryClick, idx}:any) {
           <div className='sidebar-content'>
           { categories?.children.map((child: any, index: any) => 
           <SubCategoriesItem 
+            level={level+1}
             idx={index} 
             handleCategoryClick={handleCategoryClick} 
             key={child.id} 
@@ -32,7 +34,7 @@ function SubCategoriesItem({categories, handleCategoryClick, idx}:any) {
     )
   }else{
     return (
-      <div onClick={() => handleCategoryClick(categories.id, idx + 1)} className="sidebar-item plain">
+      <div tabIndex={0} onClick={() => handleCategoryClick(categories.id, idx + 1, level)} className="sidebar-item plain">
                 <span>{t(categories.name)}</span>
       </div>
     )

@@ -3,7 +3,7 @@ import React from 'react';
 import SubCategoriesItem from "./SubCategoriesItem"
 
 
-function CategoriesSection({ catData, handleCategoryClick, t }: HomeProps) {
+function CategoriesSection({ catData, handleCategoryClick, setSelectedCategories, t }: HomeProps) {
   
   return (
     <section className='categories-section'>
@@ -12,7 +12,7 @@ function CategoriesSection({ catData, handleCategoryClick, t }: HomeProps) {
         <ul
         className='categories_all'
           onClick={() => {
-            handleCategoryClick && handleCategoryClick(null, null);
+            setSelectedCategories([])
           }}
         >
           <li className='categories_all_li'>{t("all")}</li>
@@ -20,7 +20,12 @@ function CategoriesSection({ catData, handleCategoryClick, t }: HomeProps) {
           {catData?.map((cat, idx) => {
             return (
               <React.Fragment key={cat.id}>
-               <SubCategoriesItem t={t} handleCategoryClick={handleCategoryClick} categories={cat} idx={idx} />
+               <SubCategoriesItem 
+                  level={0} 
+                  t={t} 
+                  handleCategoryClick={handleCategoryClick} 
+                  categories={cat} 
+                  idx={idx}/>
               </React.Fragment>
             )
           })}

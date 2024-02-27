@@ -28,7 +28,7 @@ function Brands({ brands }:HomeProps) {
         <div className='brand_overflow'>
           {brands?.map((brand) => {
             return (
-              <Link href={`${baseUrl}/products`} key={brand.id} className='each_brand'>
+              <Link href={`${baseUrl}/products?brandId=${brand.id}`} key={brand.id} className='each_brand'>
                 <div>
                   <Image
                     width={306} 
